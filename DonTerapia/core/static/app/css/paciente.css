@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.navbar h1 {
+    margin: 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Ajustado para alinear elementos en el extremo derecho de la navbar */
+    flex-grow: 1; /* Asegura que el user-info tome el espacio restante en la navbar */
+}
+
+.user-info img {
+    width: 40px; /* Tamaño aumentado */
+    height: 40px; /* Mantener la proporción */
+    border-radius: 50%; /* Asegura que la imagen sea completamente circular */
+    margin-right: 10px; /* Espacio entre el logo y el texto */
+}
+
+.user-info p {
+    margin: 0;
+    color: white; /* Asegura que el texto sea blanco para mejorar la visibilidad */
+    font-size: 18px; /* Tamaño adecuado para el texto */
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Toma todo el ancho disponible */
+}
+
+.button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 25px 50px; /* Padding aumentado para botones más grandes */
+    margin: 15px;
+    border-radius: 20px; /* Bordes más redondeados para un look más suave */
+    font-size: 22px; /* Tamaño de fuente aumentado para mejor legibilidad */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 70%; /* Ancho ajustado para un impacto visual más grande */
+}
+.button:hover {
+    background-color: #0056b3;
+}
+
+#progreso {
+    background-color: #ff7f50; /* Coral */
+}
+
+#actividades {
+    background-color: #1e90ff; /* DodgerBlue */
+}
+
+#notificaciones {
+    background-color: #32cd32; /* LimeGreen */
+}

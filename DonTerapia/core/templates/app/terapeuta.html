@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don Terapia - Terapeuta</title>
+    <link rel="stylesheet" href="{% static 'app/css/terapeuta.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Don Terapia</h1>
+        <div class="user-info">
+            <p>Bienvenido, [Terapeuta]</p>
+            <img src="{% static 'app/img/logo.png' %}" alt="Icono de Usuario">
+        </div>
+    </div>
+    <div class="main-menu">
+        <button class="button" id="pacientes">Listado de Pacientes</button>
+        <a href="{% url 'actividades' %}" class="button" id="actividades">Actividades</a>
+        <button class="button" id="notas">Notas</button>
+    </div>
+</body>
+</html>
