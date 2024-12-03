@@ -1,0 +1,129 @@
+
+
+    /* Fondo con imagen y efecto borroso */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('{% static "app/img/background.png" %}') no-repeat center center fixed;
+        background-size: cover;
+        filter: blur(8px);
+        z-index: -1; /* Envía el fondo detrás del contenido */
+    }
+
+    /* Colores personalizados */
+    :root {
+        --primary-color: #2b2a2a;
+        --secondary-color: #f3f3f3;
+        --text-color: #333;
+        --accent-color: #FF6F61;
+    }
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Asegura que el contenido ocupe toda la pantalla */
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px 20px; /* Más padding para que la navbar tenga más espacio */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade una sombra para mejor visual */
+    position: sticky; /* Navbar fija en la parte superior cuando se desplaza */
+    top: 0;
+    z-index: 1000; /* Asegura que la barra esté sobre el resto del contenido */
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-info p {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 40px; /* Añade espacio entre la navbar y el contenido principal */
+    gap: 20px; /* Espacio uniforme entre los botones */
+}
+
+.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%; /* Ajustado para que los botones no ocupen todo el ancho */
+    padding: 15px 30px; /* Padding más pequeño para hacer los botones más compactos */
+    margin: 15px 0;
+    background-color: #007bff;
+    color: rgb(21, 0, 255);
+    text-align: center;
+    border-radius: 15px; /* Bordes redondeados más sutiles */
+    text-decoration: none;
+    font-size: 20px; /* Fuente ligeramente más pequeña para mejor legibilidad */
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade una sombra para darle profundidad */
+    transition: all 0.3s ease; /* Transición suave en el hover */
+}
+
+.button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Añade un pequeño efecto de "zoom" en el hover */
+}
+
+#pacientes {
+    background-color: #007bff;
+}
+
+#actividades {
+    background-color: #ffc107;
+}
+
+#notas {
+    background-color: #dc3545;
+}
+
+/* Mejoras para dispositivos móviles */
+@media (max-width: 768px) {
+    .button {
+        width: 90%; /* Botones más grandes en pantallas pequeñas */
+        font-size: 18px; /* Ajuste de la fuente para pantallas pequeñas */
+    }
+
+    .navbar h1 {
+        font-size: 20px;
+    }
+}

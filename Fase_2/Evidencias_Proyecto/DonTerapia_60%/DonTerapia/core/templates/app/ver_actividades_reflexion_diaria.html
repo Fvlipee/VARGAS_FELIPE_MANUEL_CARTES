@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 2: Reflexión Diaria</title>
+    <!-- Incluye Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <!-- Título de la página -->
+    <div class="text-center mb-4">
+        <h1 class="display-4">Actividad 2: Reflexión diaria</h1>
+        <h3 class="text-muted">Paciente: {{ paciente.username }}</h3>
+    </div>
+
+    <!-- Tarjeta de la actividad -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h4 class="card-title">{{ actividad.titulo }}</h4>
+            <p class="card-text">A continuación se muestran las respuestas registradas para esta actividad.</p>
+        </div>
+    </div>
+
+    <!-- Tabla de respuestas -->
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Respuesta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for respuesta in respuestas %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ respuesta.respuesta }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" class="text-center">No se han registrado respuestas para esta actividad.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Botón para regresar a Progreso Pacientes -->
+    <div class="text-center">
+        <a href="{% url 'progreso_pacientes' %}" class="btn btn-secondary mt-3">
+            <i class="bi bi-arrow-left"></i> Regresar a Progreso
+        </a>
+    </div>
+</div>
+
+<!-- Incluye Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

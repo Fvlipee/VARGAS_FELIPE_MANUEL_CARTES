@@ -1,0 +1,148 @@
+/* Estilos personalizados para las cartas */
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #ffeb3b; /* Fondo amarillo */
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    border-radius: 15px 15px 0 0;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 15px;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #2980b9;
+    border: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #3498db;
+}
+
+.modal-content {
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Asegura que el contenedor de las cartas esté usando flexbox */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Añade espacio entre las cartas */
+}
+
+/* Asegura que todas las cartas tengan la misma altura */
+.card {
+    flex: 1 1 300px; /* Permite que las cartas crezcan o se reduzcan según el tamaño del contenedor */
+    max-width: 300px; /* Limita el ancho máximo de las cartas */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Hace que el contenido dentro de la carta se distribuya equitativamente */
+    height: 100%; /* Asegura que las cartas ocupen toda la altura disponible */
+    background-color: #ffeb3b; /* Fondo amarillo */
+}
+
+/* Asegura que el botón esté siempre al final de la carta */
+.card .btn {
+    margin-top: auto; /* Coloca el botón al final de la carta */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+h1 {
+    margin-top: 20px;
+    color: #333;
+    text-align: center;
+    font-size: 36px;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+.card {
+    margin: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade sombra a las tarjetas */
+    border-radius: 10px; /* Bordes redondeados */
+    transition: transform 0.3s ease; /* Efecto de agrandamiento al pasar el cursor */
+    background-color: #ffeb3b; /* Fondo amarillo */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Efecto de hover */
+}
+
+.card img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+    height: 150px; /* Ajusta el tamaño de la imagen */
+    object-fit: cover; /* Asegura que las imágenes se adapten correctamente */
+}
+
+.card-body {
+    text-align: center;
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.card-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.empty-message {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}

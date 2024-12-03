@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades - Don Terapia</title>
+    <!-- Incluye Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/css/actividades.css' %}">
+</head>
+<body>
+    <style>
+        /* Fondo con imagen y efecto borroso */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "app/img/background.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1; /* Envía el fondo detrás del contenido */
+        }
+    
+        /* Colores personalizados */
+        :root {
+            --primary-color: #2b2a2a;
+            --secondary-color: #f3f3f3;
+            --text-color: #333;
+            --accent-color: #FF6F61;
+        }
+    </style>
+
+<div class="container mt-5">
+    <h1 class="text-center">Actividades</h1>
+
+    <div class="row justify-content-center">
+        <!-- Itera a través de las actividades predefinidas -->
+        {% for actividad in actividades %}
+        <div class="col-md-3">
+            <div class="card mb-4">
+                <!-- Mostrar la imagen directamente desde el campo imagen_url -->
+                <img src="{% static actividad.imagen_url %}" class="card-img-top" alt="Actividad {{ actividad.titulo }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ actividad.titulo }}</h5>
+                    <p class="card-text">{{ actividad.descripcion }}</p>
+
+                    {% if user.is_authenticated and user.es_terapeuta %}
+                        <!-- Si es la actividad "Reflexión diaria: ¿Cómo estuvo tu día?" -->
+                        {% if actividad.titulo == "Reflexión diaria: ¿Cómo estuvo tu día?" %}
+                            <!-- Botón para redirigir al terapeuta a asignar tareas -->
+                            <a href="{% url 'asignar_tareas' actividad.id %}" class="btn btn-warning">
+                                Asignar 
+                            </a>
+                        {% else %}
+                            <!-- Para otras actividades, el botón de asignar pacientes -->
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#asignarModal" 
+                                    onclick="setActividadId({{ actividad.id }}, '{{ actividad.titulo }}')">
+                                Asignar
+                            </button>
+                        {% endif %}
+                    {% else %}
+                        <!-- Si es paciente, redirigir a la página de realizar actividad -->
+                        {% if actividad.titulo == "Reflexión diaria: ¿Cómo estuvo tu día?" %}
+                            <a href="{% url 'realizar_actividad_con_tareas' actividad.id %}" class="btn btn-primary">Ver actividad</a>
+                        {% else %}
+                            <a href="{% url 'realizar_actividad' actividad.id %}" class="btn btn-primary">Ver actividad</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Modal de Bootstrap para la asignación -->
+<div class="modal fade" id="asignarModal" tabindex="-1" role="dialog" aria-labelledby="asignarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="asignarModalLabel">Asignar actividad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="asignarForm" action="{% url 'asignar_actividad' 0 %}">
+                    {% csrf_token %}
+                    <h6 id="modalActividadTitulo"></h6>
+                    <h6>Selecciona los pacientes:</h6>
+                    <!-- Lista de pacientes con checkboxes -->
+                    {% for paciente in pacientes %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="pacientes" value="{{ paciente.id }}" id="paciente{{ paciente.id }}">
+                            <label class="form-check-label" for="paciente{{ paciente.id }}">
+                                {{ paciente.username }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="actividadIdInput" name="actividad_id" value="">
+                    <button type="submit" class="btn btn-success mt-3">Asignar actividad</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de éxito -->
+<div class="modal fade" id="modalExito" tabindex="-1" aria-labelledby="modalExitoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalExitoLabel">¡Éxito!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                La actividad se asignó correctamente.
+            </div>
+            <div class="modal-footer">
+                <!-- Cambiar para redirigir a la página de actividades -->
+                <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'actividades' %}'">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Incluye Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Aquí va el código JavaScript -->
+<script>
+    // Función para establecer el ID de la actividad y su título en el modal
+    function setActividadId(actividadId, actividadTitulo) {
+        document.getElementById('actividadIdInput').value = actividadId;
+        document.getElementById('modalActividadTitulo').innerText = "Asignar: " + actividadTitulo;
+        // Actualiza la acción del formulario con el ID de la actividad
+        document.getElementById('asignarForm').action = "{% url 'asignar_actividad' 0 %}".replace('0', actividadId);
+    }
+
+    // Mostrar modal de éxito si la actividad se asignó correctamente
+    {% if success %}
+    $(document).ready(function() {
+        $('#modalExito').modal('show');
+    });
+    {% endif %}
+</script>
+
+</body>
+</html>

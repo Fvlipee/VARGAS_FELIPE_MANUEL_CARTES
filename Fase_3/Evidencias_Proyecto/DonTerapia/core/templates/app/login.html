@@ -1,0 +1,60 @@
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'app/css/login.css' %}">
+{% endblock %}
+
+<style>
+    /* Fondo con imagen y efecto borroso */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('{% static "app/img/background.png" %}') no-repeat center center fixed;
+        background-size: cover;
+        filter: blur(8px);
+        z-index: -1; /* Envía el fondo detrás del contenido */
+    }
+
+    /* Colores personalizados */
+    :root {
+        --primary-color: #2b2a2a;
+        --secondary-color: #f3f3f3;
+        --text-color: #333;
+        --accent-color: #FF6F61;
+    }
+</style>
+{% block content %}
+<div class="login-container">
+    <div class="logo-section">
+        <img src="{% static 'app/img/logo.png' %}" alt="Don Terapia Logo" class="logo">
+        <h1>Don Terapia</h1>
+    </div>
+    <h2>LOGIN</h2>
+
+    <!-- Mostrar mensajes de error si los hay -->
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <p>Las credenciales ingresadas son incorrectas. Por favor intenta nuevamente.</p>
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <i class="icon user-icon"></i>
+            <input type="text" name="username" placeholder="Correo de Usuario" required value="{{ form.username.value }}">
+        </div>
+        <div class="input-group">
+            <i class="icon lock-icon"></i>
+            <input type="password" name="password" placeholder="Contraseña" required>
+        </div>
+        <button type="submit">Ingresar</button>
+    </form>
+
+    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar Actividad</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Realizar Actividad: {{ actividad.titulo }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <!-- Mostrar solo las tareas no completadas -->
+        <div class="form-group">
+            {% for tarea in tareas %}
+                <label for="tarea_{{ tarea.id }}">{{ tarea.descripcion }}</label>
+                <input type="text" class="form-control" name="tarea_{{ tarea.id }}" required>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-success">Enviar Respuestas</button>
+    </form>
+</div>
+
+<!-- Modal de éxito -->
+<div class="modal fade" id="modalExito" tabindex="-1" aria-labelledby="modalExitoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalExitoLabel">¡Éxito!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                La actividad se realizó correctamente.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="location.href='{% url 'actividades_asignadas' %}'">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script para mostrar el modal si la actividad fue realizada -->
+{% if actividad_realizada %}
+<script>
+    $(document).ready(function() {
+        $('#modalExito').modal('show');
+    });
+</script>
+{% endif %}
+
+</body>
+</html>

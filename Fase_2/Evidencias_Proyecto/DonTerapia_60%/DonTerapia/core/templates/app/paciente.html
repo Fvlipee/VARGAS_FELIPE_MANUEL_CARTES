@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don Terapia - Paciente</title>
+    <link rel="stylesheet" href="{% static 'app/css/paciente.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Don Terapia</h1>
+        <div class="user-info">
+            <img src="{% static 'app/img/logo.png' %}" alt="Icono de Usuario">
+            <p>Bienvenido, {{ user.username }}</p> <!-- Mostrar el nombre del paciente -->
+        </div>
+    </div>
+    
+    <div class="main-menu">
+        <button class="button" id="progreso">Progreso Paciente</button>
+        <!-- Redirige a la vista de actividades asignadas al paciente -->
+        <a href="{% url 'actividades_asignadas' %}" class="button" id="actividades">Actividades disponibles</a>
+        <button class="button" id="notificaciones">Notificaciones</button>
+    </div>
+</body>
+</html>

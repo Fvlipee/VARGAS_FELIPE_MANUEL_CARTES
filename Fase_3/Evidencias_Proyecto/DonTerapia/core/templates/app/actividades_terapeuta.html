@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades de {{ paciente.first_name }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Actividades de {{ paciente.first_name }}</h1>
+    
+    <div class="row">
+        {% for actividad in actividades_realizadas %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ actividad.actividad.titulo }}</h5>
+                    <p class="card-text"><strong>Fecha:</strong> {{ actividad.fecha_realizacion }}</p>
+                    <!-- Botón para ver las respuestas -->
+                    <a href="{% url 'ver_respuestas_actividad' actividad.id %}" class="btn btn-primary">Ver Respuestas</a>
+                    <!-- Botón para dar feedback -->
+                    <a href="{% url 'dar_feedback_actividad' actividad.id %}" class="btn btn-secondary mt-2">Dar Feedback</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'progreso_pacientes' %}" class="btn btn-secondary">Regresar a Progreso</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

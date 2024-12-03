@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respuestas de la Tarea</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 700px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card-body {
+            background-color: #ffffff;
+            border-radius: 10px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            color: #343a40;
+            font-weight: bold;
+        }
+        .text-muted {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .highlight {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .btn-back {
+            background-color: #6c757d;
+            color: #fff;
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+        .btn-back:hover {
+            background-color: #5a6268;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <style>
+        /* Fondo con imagen y efecto borroso */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "app/img/background.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1; /* Envía el fondo detrás del contenido */
+        }
+    
+        /* Colores personalizados */
+        :root {
+            --primary-color: #2b2a2a;
+            --secondary-color: #f3f3f3;
+            --text-color: #333;
+            --accent-color: #FF6F61;
+        }
+    </style>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Respuestas de la Tarea</h1>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title mb-4">Actividad: {{ tarea.actividad.titulo }}</h5>
+            <p class="text-muted">Tarea:</p>
+            <div class="highlight">
+                <p>{{ tarea.descripcion }}</p>
+            </div>
+            <p class="text-muted">Respuesta del Paciente:</p>
+            <div class="highlight">
+                <p>{{ respuesta_tarea.respuesta }}</p>
+            </div>
+            <p class="text-muted">Fecha de Realización:</p>
+            <p>{{ respuesta_tarea.fecha_realizacion|date:"d M Y" }}</p>
+        </div>
+    </div>
+    
+    <div class="text-center mt-4">
+        <a href="{% url 'progreso_pacientes' %}" class="btn btn-back">Volver al Progreso</a>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

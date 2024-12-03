@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar Feedback</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <style>
+        /* Fondo con imagen y efecto borroso */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "app/img/background.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1; /* Envía el fondo detrás del contenido */
+        }
+    
+        /* Colores personalizados */
+        :root {
+            --primary-color: #2b2a2a;
+            --secondary-color: #f3f3f3;
+            --text-color: #333;
+            --accent-color: #FF6F61;
+        }
+    </style>
+<div class="container mt-5">
+    <h1 class="text-center">Realizar Feedback</h1>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Actividad: {{ actividad_titulo }}</h5>
+            
+            {% if antecedentes %}
+                <p><strong>Antecedentes:</strong> {{ antecedentes }}</p>
+                <p><strong>Conducta:</strong> {{ conducta }}</p>
+                <p><strong>Consecuencia:</strong> {{ consecuencia }}</p>
+            {% else %}
+                <p><strong>Tarea:</strong> {{ pregunta }}</p>
+                <p><strong>Respuesta del Paciente:</strong> {{ respuesta }}</p>
+            {% endif %}
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="comentario">Comentario del Feedback</label>
+                    <textarea class="form-control" id="comentario" name="comentario" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Enviar Feedback</button>
+                <a href="{% url 'progreso_pacientes' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS (opcional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

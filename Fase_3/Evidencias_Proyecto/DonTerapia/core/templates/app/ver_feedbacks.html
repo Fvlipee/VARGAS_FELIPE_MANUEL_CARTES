@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedbacks Realizados</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <style>
+        /* Fondo con imagen y efecto borroso */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "app/img/background.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1; /* Envía el fondo detrás del contenido */
+        }
+    
+        /* Colores personalizados */
+        :root {
+            --primary-color: #2b2a2a;
+            --secondary-color: #f3f3f3;
+            --text-color: #333;
+            --accent-color: #FF6F61;
+        }
+    </style>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Feedbacks Realizados</h1>
+        <div class="row">
+            <div class="col-12">
+                <!-- Feedbacks de Actividades -->
+                <h2>Feedbacks de Actividades</h2>
+                <ul class="list-group mb-4">
+                    {% for feedback in feedbacks_actividad %}
+                    <li class="list-group-item">
+                        <strong>Actividad:</strong> {{ feedback.actividad_realizada.actividad.titulo }}<br>
+                        <strong>Comentario:</strong> {{ feedback.comentario }}<br>
+                        <strong>Fecha:</strong> {{ feedback.fecha_hora|date:"d/m/Y H:i" }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                
+                <!-- Feedbacks de Tareas -->
+                <h2>Feedbacks de Tareas</h2>
+                <ul class="list-group">
+                    {% for feedback in feedbacks_tarea %}
+                    <li class="list-group-item">
+                        <strong>Tarea:</strong> {{ feedback.respuesta_tarea.tarea.descripcion }}<br>
+                        <strong>Comentario:</strong> {{ feedback.comentario }}<br>
+                        <strong>Fecha:</strong> {{ feedback.fecha_hora|date:"d/m/Y H:i" }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

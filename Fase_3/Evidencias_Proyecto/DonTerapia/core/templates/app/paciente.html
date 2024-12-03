@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}   
+    <style>
+        /* Fondo con imagen y efecto borroso */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "app/img/background.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1; /* Envía el fondo detrás del contenido */
+        }
+
+        /* Estilo del cuadro blanco */
+        .content-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+            margin: 0 auto;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        /* Colores personalizados */
+        :root {
+            --primary-color: #2b2a2a;
+            --secondary-color: #f3f3f3;
+            --text-color: #333;
+            --accent-color: #FF6F61;
+        }
+
+        /* Navbar personalizado */
+        .navbar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-info p {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        /* Estilo de botones */
+        .main-menu button, .main-menu a {
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .main-menu button {
+            border: 2px solid #FF6F61;
+        }
+
+        .main-menu a {
+            border: 2px solid #28a745;
+        }
+
+        .main-menu button:hover {
+            background-color: #FF6F61;
+            color: white;
+        }
+
+        .main-menu a:hover {
+            background-color: #28a745;
+            color: white;
+        }
+
+    </style>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/css/paciente.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don Terapia - Paciente</title>
+</head>
+<body>
+  
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Don Terapia</h1>
+        <div class="user-info">
+            <img src="{% static 'app/img/logo.png' %}" alt="Icono de Usuario">
+            <p>Bienvenido, {{ user.username }}</p> <!-- Mostrar el nombre del paciente -->
+        </div>
+    </div>
+
+    <main class="container d-flex flex-column align-items-center mt-5">
+        <div class="content-box">
+            <div class="main-menu w-100 d-flex flex-column align-items-center gap-3">
+                <!-- Botones principales -->
+                <button class="btn btn-lg btn-outline-success" id="progreso">Progreso Paciente</button>
+                <a href="{% url 'actividades_asignadas' %}" class="btn btn-lg btn-outline-success" id="actividades">Actividades disponibles</a>
+                <button class="btn btn-lg btn-outline-warning" id="notificaciones">Notificaciones</button>
+            </div>
+        </div>
+    </main>
+  
+    <!-- Bootstrap JS (opcional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

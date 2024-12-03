@@ -1,0 +1,25 @@
+/* Estilo compartido para botones */
+.btn {
+    font-size: 1.2rem; /* Tamaño de fuente uniforme */
+    border-radius: 8px; /* Bordes redondeados */
+    font-weight: bold; /* Negrita para texto */
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-outline-warning {
+    color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn:hover {
+    opacity: 0.9; /* Efecto hover suave */
+}

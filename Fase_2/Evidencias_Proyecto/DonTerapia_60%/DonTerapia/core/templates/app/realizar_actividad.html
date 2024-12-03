@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar Actividad</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Realizar Actividad: {{ actividad.titulo }}</h1>
+
+    <!-- Verificar si la actividad ya fue realizada -->
+    {% if actividad_realizada %}
+        <div class="alert alert-success" role="alert">
+            ¡Has completado esta actividad correctamente!
+        </div>
+    {% endif %}
+
+    <!-- Formulario para realizar la actividad -->
+    <form method="post" action="{% url 'realizar_actividad' actividad.id %}">
+        {% csrf_token %}
+        <!-- Preguntas de la actividad -->
+        <div class="form-group">
+            <label for="antecedentes">¿Qué sucedió antes? (Antecedentes)</label>
+            <textarea class="form-control" id="antecedentes" name="antecedentes" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="conducta">¿Qué hizo el niño/a? (Conducta)</label>
+            <textarea class="form-control" id="conducta" name="conducta" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="consecuencia">¿Qué pasó después? (Consecuencia)</label>
+            <textarea class="form-control" id="consecuencia" name="consecuencia" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="fecha_hora">Fecha y hora del suceso</label>
+            <input type="datetime-local" class="form-control" id="fecha_hora" name="fecha_hora" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Enviar actividad</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

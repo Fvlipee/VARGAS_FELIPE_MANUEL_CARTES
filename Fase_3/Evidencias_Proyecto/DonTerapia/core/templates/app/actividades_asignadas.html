@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades Asignadas - Paciente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'app/css/actividades.css' %}">
+    <style>
+        /* CSS personalizado para mejorar el diseño */
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #343a40;
+            margin-bottom: 40px;
+        }
+
+        .empty-message {
+            font-size: 1.25rem;
+            color: #6c757d;
+        }
+
+        .card-body {
+            text-align: center;
+        }
+           /* Fondo con imagen y efecto borroso */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "app/img/background.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1; /* Envía el fondo detrás del contenido */
+        }
+
+        /* Colores personalizados */
+        :root {
+            --primary-color: #2b2a2a;
+            --secondary-color: #f3f3f3;
+            --text-color: #333;
+            --accent-color: #FF6F61;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Actividades Asignadas</h1>
+
+    <div class="row justify-content-center">
+        <!-- Iterar a través de las actividades asignadas -->
+        {% for actividad in actividades %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <!-- Imagen de la actividad -->
+                <img src="{% static actividad.imagen_url %}" class="card-img-top" alt="Actividad {{ actividad.titulo }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ actividad.titulo }}</h5>
+                    <p class="card-text">{{ actividad.descripcion }}</p>
+                    
+                    <!-- Botón para realizar la actividad o tareas -->
+                    {% if actividad.titulo == "ANALISIS DE CONDUCTA (ACC)" %}
+                        <a href="{% url 'realizar_actividad' actividad.id %}" class="btn btn-primary">Realizar Actividad</a>
+                    {% else %}
+                        <a href="{% url 'realizar_actividad_con_tareas' actividad.id %}" class="btn btn-primary">Realizar Tareas</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="empty-message">No tienes actividades asignadas por el momento.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

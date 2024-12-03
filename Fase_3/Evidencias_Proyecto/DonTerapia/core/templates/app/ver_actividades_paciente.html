@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades - Progreso del Paciente</title>
+    <!-- Incluye Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/css/actividades.css' %}">
+</head>
+<body>
+    <style>
+        /* Fondo con imagen y efecto borroso */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "app/img/background.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(8px);
+            z-index: -1; /* Envía el fondo detrás del contenido */
+        }
+    
+        /* Colores personalizados */
+        :root {
+            --primary-color: #2b2a2a;
+            --secondary-color: #f3f3f3;
+            --text-color: #333;
+            --accent-color: #FF6F61;
+        }
+    </style>
+<div class="container mt-5">
+    <h1 class="text-center">Actividades del Paciente {{ paciente.username }}</h1>
+
+    <div class="row justify-content-center">
+        <!-- Iterar sobre las actividades realizadas -->
+        {% for actividad_realizada in actividades_realizadas %}
+        <div class="col-md-3">
+            <div class="card mb-4">
+                <!-- Mostrar la imagen directamente desde el campo imagen_url -->
+                <img src="{% static actividad_realizada.actividad.imagen_url %}" class="card-img-top" alt="Actividad {{ actividad_realizada.actividad.titulo }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ actividad_realizada.actividad.titulo }}</h5>
+                    <p class="card-text">Realizada el: {{ actividad_realizada.fecha_realizacion|date:"d M Y" }}</p>
+
+                    <!-- Botón para ver la actividad y sus respuestas -->
+                    <a href="{% url 'ver_respuestas_actividad_acc' actividad_realizada.id %}" class="btn btn-primary">Ver Respuestas</a>
+
+                    <!-- Botón para realizar feedback -->
+                    <a href="{% url 'realizar_feedback_acc' actividad_realizada.id %}" class="btn btn-warning mt-2">Realizar Feedback</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for respuesta_tarea in respuestas_tareas %}
+        <div class="col-md-3">
+            <div class="card mb-4">
+                <img src="{% static respuesta_tarea.tarea.actividad.imagen_url %}" class="card-img-top" alt="tarea {{ respuesta_tarea.tarea.descripcion }}">
+                <div class="card-body text-center">
+                    <!-- Mostrar el título de la actividad asociada a la tarea -->
+                    <h5 class="card-title">{{ respuesta_tarea.tarea.actividad.titulo }}</h5>
+                    <p class="card-text">Fecha: {{ respuesta_tarea.fecha_realizacion|date:"d M Y" }}</p>
+                
+                    <!-- Botón para ver la actividad y sus respuestas -->
+                    <a href="{% url 'ver_respuestas_tarea' respuesta_tarea.id %}" class="btn btn-primary">Ver Respuestas</a>
+                
+                    <!-- Botón para realizar feedback -->
+                    <a href="{% url 'realizar_feedback_tarea' respuesta_tarea.id %}" class="btn btn-warning mt-2">Realizar Feedback</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<!-- Incluye Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades Asignadas - Paciente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'app/css/actividades.css' %}">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Actividades Asignadas</h1>
+
+    <div class="row justify-content-center">
+        <!-- Iterar a través de las actividades asignadas -->
+        {% for actividad in actividades %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <!-- Imagen de la actividad -->
+                <img src="{% static actividad.imagen_url %}" class="card-img-top" alt="Actividad {{ actividad.titulo }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ actividad.titulo }}</h5>
+                    <p class="card-text">{{ actividad.descripcion }}</p>
+                    
+                    <!-- Botón para realizar la actividad o tareas -->
+                    {% if actividad.titulo == "ANALISIS DE CONDUCTA (ACC)" %}
+                        <!-- Si es la actividad 1, redirige a realizar la actividad específica -->
+                        <a href="{% url 'realizar_actividad' actividad.id %}" class="btn btn-primary">Realizar Actividad</a>
+                    {% else %}
+                        <!-- Para otras actividades con tareas, redirige a la vista para realizar todas las tareas asignadas -->
+                        <a href="{% url 'realizar_actividad_con_tareas' actividad.id %}" class="btn btn-primary">Realizar Tareas</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p>No tienes actividades asignadas por el momento.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

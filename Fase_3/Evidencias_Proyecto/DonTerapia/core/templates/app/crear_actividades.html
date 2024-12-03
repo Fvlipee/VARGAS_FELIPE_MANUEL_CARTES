@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="{% static 'app/css/estilos.css' %}">
+    <title>Actividades</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Actividades</h1>
+    </div>
+    <div class="carousel">
+        <div class="activity">
+            <img src="{% static 'app/img/pintar.png' %}" alt="Pintar y Dibujar">
+            <p>Pintar y Dibujar</p>
+            <button>Ver actividad</button>
+        </div>
+        <div class="activity">
+            <img src="{% static 'app/img/jardin.png' %}" alt="Jardín Retro">
+            <p>Jardín Retro</p>
+            <button>Ver actividad</button>
+        </div>
+        <div class="activity">
+            <img src="{% static 'app/img/rorschach.png' %}" alt="Test de Rorschach">
+            <p>Test de Rorschach</p>
+            <button>Ver actividad</button>
+        </div>
+    </div>
+    <div class="actions">
+        <button id="createActivity">Crear actividad</button>
+    </div>
+    <script src="{% static 'app/js/actividades.js' %}"></script>
+</body>
+</html>
